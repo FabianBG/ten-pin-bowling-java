@@ -3,8 +3,10 @@
  */
 package com.fabianbg.ten_pin_bowling;
 
-import com.fabianbg.ten_pin_bowling.application.utils.FileUtilsImpl;
-import com.fabianbg.ten_pin_bowling.application.utils.IFileUtils;
+import com.fabianbg.ten_pin_bowling.application.cotroller.CMDControllerImpl;
+import com.fabianbg.ten_pin_bowling.application.cotroller.IAppController;
+import com.fabianbg.ten_pin_bowling.application.util.FileUtilsImpl;
+import com.fabianbg.ten_pin_bowling.application.util.IFileUtils;
 import com.fabianbg.ten_pin_bowling.domain.service.BowlingGameImpl;
 import com.fabianbg.ten_pin_bowling.domain.service.IBowlingGame;
 import com.google.inject.AbstractModule;
@@ -14,5 +16,6 @@ public class IoC extends AbstractModule {
     protected void configure() {
         bind(IBowlingGame.class).toInstance(new BowlingGameImpl());
         bind(IFileUtils.class).toInstance(new FileUtilsImpl());
+        bind(IAppController.class).toInstance(new CMDControllerImpl());
     }
 }

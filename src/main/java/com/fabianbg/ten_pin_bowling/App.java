@@ -3,6 +3,8 @@
  */
 package com.fabianbg.ten_pin_bowling;
 
+import com.fabianbg.ten_pin_bowling.application.cotroller.CMDControllerImpl;
+import com.fabianbg.ten_pin_bowling.application.cotroller.IAppController;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -10,5 +12,7 @@ public class App {
 
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new IoC());
+        IAppController app = injector.getInstance(CMDControllerImpl.class);
+        app.init(args);
     }
 }

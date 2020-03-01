@@ -1,4 +1,4 @@
-package com.fabianbg.ten_pin_bowling.application.utils;
+package com.fabianbg.ten_pin_bowling.application.util;
 
 import java.io.IOException;
 import java.util.stream.Stream;
