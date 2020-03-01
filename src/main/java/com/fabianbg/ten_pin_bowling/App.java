@@ -3,12 +3,12 @@
  */
 package com.fabianbg.ten_pin_bowling;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Injector injector = Guice.createInjector(new IoC());
     }
 }

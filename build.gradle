@@ -28,7 +28,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
-	
+	// Guice dependencies
+    compile group: 'com.google.inject', name: 'guice', version: '4.2.2'
+    
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     
