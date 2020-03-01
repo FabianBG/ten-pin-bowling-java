@@ -42,6 +42,7 @@ public class BowlingGameImpl implements IBowlingGame {
 
     @Override
     public String getPlayerResults(PlayerScore playerScores) {
+
         return "";
     }
 
@@ -73,12 +74,15 @@ public class BowlingGameImpl implements IBowlingGame {
                 actual.getPinfalls().add(this.STRIKE_LABEL);
                 actualScore += scoreParsed;
                 furterScoresIndex = actualPlay + 2;
+                // Escape if no have enough plays to calculate the score
                 if (scores.size() < furterScoresIndex)
                     break;
                 actualScore = calculateScore(actualScore, scores.subList(actualPlay, furterScoresIndex));
             } else {
                 actual.getPinfalls().add(score);
                 furterScoresIndex = actualPlay + 1;
+
+                // Escape if no have enough plays to calculate the score
                 if (scores.size() < furterScoresIndex)
                     break;
 

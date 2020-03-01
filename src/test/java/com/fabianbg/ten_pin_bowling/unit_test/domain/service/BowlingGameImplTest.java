@@ -35,6 +35,32 @@ public class BowlingGameImplTest {
     }
 
     @Test
+    public void makePlayWithNoStrikeAndFaultInNewGame_ShouldReturnAPlayerScoreWithEmptyScore() {
+        final String plays = "8";
+        Map<String, PlayerScore> newGame = this.bowlingGameService.newGame();
+        final String name = "Steve";
+
+        PlayerScore result = this.bowlingGameService.makePlay(newGame, name, plays);
+
+        assertNotNull(result);
+        assertEquals(result.getName(), name);
+        assertEquals(result.getFrames()[0].getScore(), 0);
+    }
+
+    @Test
+    public void makePlayWithStrikeInNewGame_ShouldReturnAPlayerScoreWithEmptyScore() {
+        final String plays = "10";
+        Map<String, PlayerScore> newGame = this.bowlingGameService.newGame();
+        final String name = "Steve";
+
+        PlayerScore result = this.bowlingGameService.makePlay(newGame, name, plays);
+
+        assertNotNull(result);
+        assertEquals(result.getName(), name);
+        assertEquals(result.getFrames()[0].getScore(), 0);
+    }
+
+    @Test
     public void makePlaysWithValidDataInNewGame_ShouldReturnAPlayerScoreWithPlays() {
         final List<String> plays = Arrays.asList("8", "2", "7", "3", "3", "4", "10", "2", "8", "10", "10", "8", "0",
                 "10", "8", "2", "9");
@@ -46,7 +72,7 @@ public class BowlingGameImplTest {
         assertNotNull(result);
         assertEquals(result.getName(), name);
         assertEquals(result.getFrames().length, 10);
-        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore().intValue(), 170);
+        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore(), 170);
     }
 
     @Test
@@ -63,7 +89,7 @@ public class BowlingGameImplTest {
         assertNotNull(result);
         assertEquals(result.getName(), name);
         assertEquals(result.getFrames().length, 10);
-        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore().intValue(), 167);
+        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore(), 167);
     }
 
     @Test
@@ -79,7 +105,7 @@ public class BowlingGameImplTest {
         assertNotNull(result);
         assertEquals(result.getName(), name);
         assertEquals(result.getFrames().length, 10);
-        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore().intValue(), 162);
+        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore(), 162);
     }
 
     @Test
@@ -94,7 +120,7 @@ public class BowlingGameImplTest {
         assertNotNull(result);
         assertEquals(result.getName(), name);
         assertEquals(result.getFrames().length, 10);
-        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore().intValue(), 300);
+        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore(), 300);
     }
 
     @Test
@@ -109,7 +135,7 @@ public class BowlingGameImplTest {
         assertNotNull(result);
         assertEquals(result.getName(), name);
         assertEquals(result.getFrames().length, 10);
-        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore().intValue(), 0);
+        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore(), 0);
     }
 
     @Test
@@ -124,7 +150,7 @@ public class BowlingGameImplTest {
         assertNotNull(result);
         assertEquals(result.getName(), name);
         assertEquals(result.getFrames().length, 10);
-        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore().intValue(), 0);
+        assertEquals(result.getFrames()[result.getFrames().length - 1].getScore(), 0);
     }
 
     @Test

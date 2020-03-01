@@ -16,7 +16,7 @@ public class Frame {
         this.pinfalls = new ArrayList<>();
     }
 
-    private Integer score;
+    private int score;
 
     private List<String> pinfalls;
 }
