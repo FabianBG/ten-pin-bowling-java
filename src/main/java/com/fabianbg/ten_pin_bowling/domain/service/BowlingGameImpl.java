@@ -42,8 +42,29 @@ public class BowlingGameImpl implements IBowlingGame {
 
     @Override
     public String getPlayerResults(PlayerScore playerScores) {
-
-        return "";
+        StringBuilder frame = new StringBuilder();
+        StringBuilder pinfall = new StringBuilder();
+        StringBuilder score = new StringBuilder();
+        frame.append("Frame");
+        pinfall.append("Pinfalls");
+        score.append("Score");
+        Frame[] frames = playerScores.getFrames();
+        for (int i = 0; i < frames.length; i++) {
+            frame.append(String.format("\t\t%d", i + 1));
+            final int plays = frames[i].getPinfalls().size();
+            String pinScore = frames[i].getPinfalls().stream().reduce("", (String a, String b) -> {
+                if (plays == 1) {
+                    return String.format("%s\t\t%s", a, b);
+                }
+                return String.format("%s\t%s", a, b);
+            });
+            pinfall.append(pinScore);
+            score.append(String.format("\t\t%d", frames[i].getScore()));
+        }
+        frame.append(String.format("\n%s", playerScores.getName()));
+        frame.append(String.format("\n%s", pinfall.toString()));
+        frame.append(String.format("\n%s\n", score.toString()));
+        return frame.toString();
     }
 
     private PlayerScore getPlayerScore(Map<String, PlayerScore> game, String player) {
