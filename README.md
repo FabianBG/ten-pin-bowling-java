@@ -35,7 +35,7 @@ Project wich parses a file of bowling plays and return the score table.. Develop
 
 Run the project agaisnt sample test inputs:
 
-`./gradlew run --args="-process-plays ./samples/sample6.txt"`
+`./gradlew run --args="--process-plays ./samples/sample6.txt"`
 
 Test the project:
 
