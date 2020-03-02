@@ -1,5 +1,6 @@
-`# CODE CHALLENGE JOBSITY
-Project wich solves the code challenge of Jobsity. Developed in Java and Gradle.
+# TEN PIN BOWLING SCORE PARSER
+
+Project wich parses a file of bowling plays and return the score table.. Developed in Java and Gradle.
 
 ## Project structure
 
@@ -15,13 +16,9 @@ Project wich solves the code challenge of Jobsity. Developed in Java and Gradle.
 └── src
     ├── main
     │   ├── java  
-    │   │   └── demo
-    │   │       └── App.java
     │   └── resources
     └── test      
         ├── java
-        │   └── demo
-        │       └── AppTest.java
         └── resources
 ```
 
@@ -48,8 +45,8 @@ Build the project:
 
 ### Execute jar
 
-You have to prevously build the jar.
+You have to previously build the jar.
 
-`java -jar app.jar --gen-score ./samples/sample6.txt`
+`java -jar build/libs/ten_pin_bowling-all.jar --process-plays ./samples/sample6.txt`
 
-# Developed by Bastidas Fabian 2020
+### Developed by Bastidas Fabian 2020
