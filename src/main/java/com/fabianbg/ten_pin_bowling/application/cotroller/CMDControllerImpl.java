@@ -1,5 +1,6 @@
 package com.fabianbg.ten_pin_bowling.application.cotroller;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
@@ -20,30 +21,39 @@ public class CMDControllerImpl implements IAppController {
     @Inject
     private IFileUtils fileManager;
 
-    private final PrintStream printer = System.out;
+    private PrintStream printer = System.out;
 
-    public void init(String[] args) {
-        this.executeCommand(args);
+    public CMDControllerImpl() {
     }
 
-    private String executeCommand(String[] args) {
+    public CMDControllerImpl(IBowlingGame bowlingGame, IFileUtils fileManager, PrintStream printer) {
+        this.fileManager = fileManager;
+        this.bowlingGame = bowlingGame;
+        this.printer = printer;
+    }
+
+    public void init(String[] args) {
+        this.cmdHandler(args);
+    }
+
+    private String cmdHandler(String[] args) {
         try {
             if (args.length == 0)
                 throw new Exception("not enough arguments.");
             switch (args[0]) {
                 case "--process-plays":
                     if (args.length < 2)
-                        throw new Exception("not enough command params.");
+                        throw new Exception("missing command params.");
                     Map<String, List<String>> mappedPlays = this.proccessOrderAndGroupPlaysFile(args[1]);
                     String results = this.getScoreTablesFromGroupedPlays(mappedPlays);
-                    this.printer.print(results);
+                    this.printer.println(results);
                     return results;
                 default:
                     throw new Exception("no command found.");
             }
 
         } catch (Exception e) {
-            this.printer.print(e.getMessage());
+            this.printer.println(e.getMessage());
             return e.getMessage();
         }
     }
@@ -58,9 +68,10 @@ public class CMDControllerImpl implements IAppController {
                 }
             }).collect(Collectors.groupingBy((String[] line) -> line[0],
                     Collectors.mapping((String[] line) -> line[1], Collectors.toList())));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             throw new Exception("error reading the file");
+        } catch (Exception e) {
+            throw e;
         }
     }
 
@@ -74,7 +85,6 @@ public class CMDControllerImpl implements IAppController {
         } catch (Exception e) {
             throw new Exception("error processing the plays");
         }
-
     }
 
     private String[] proccessScoreFileLine(String line) throws Exception {
