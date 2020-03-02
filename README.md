@@ -24,7 +24,7 @@ Project wich parses a file of bowling plays and return the score table.. Develop
 
 ## Requirements
 
-* Java >= 8
+* Java >= 8 (For java 11 and 12 exist a warning for google guice inject reflection usage)
 * Gradle
 * Mockito
 * JUnit
@@ -34,9 +34,11 @@ Project wich parses a file of bowling plays and return the score table.. Develop
 ### Gradle
 
 Run the project agaisnt sample test inputs:
-`./gradlew run --args="--gen-score ./samples/sample6.txt"`
+
+`./gradlew run --args="-process-plays ./samples/sample6.txt"`
 
 Test the project:
+
 `./gradlew test`
 
 Build the project:
