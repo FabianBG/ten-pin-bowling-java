@@ -124,9 +124,11 @@ public class CMDControllerImplTest {
         player2Score.setFrames(new Frame[] {});
         String table1 = "table1";
         String table2 = "table2";
+        String header = "header";
 
         when(this.fileManager.readFile(filePath)).thenReturn(fileStream);
         when(this.bowlingGameService.newGame()).thenReturn(game);
+        when(this.bowlingGameService.getFrameHeader()).thenReturn(header);
         when(this.bowlingGameService.makePlays(game, player1, plays1)).thenReturn(player1Score);
         when(this.bowlingGameService.makePlays(game, player2, plays2)).thenReturn(player2Score);
         when(this.bowlingGameService.getPlayerResults(player1Score)).thenReturn(table1);
@@ -136,11 +138,12 @@ public class CMDControllerImplTest {
 
         verify(this.fileManager, times(1)).readFile(filePath);
         verify(this.bowlingGameService, times(1)).newGame();
+        verify(this.bowlingGameService, times(1)).getFrameHeader();
         verify(this.bowlingGameService, times(1)).makePlays(game, player1, plays1);
         verify(this.bowlingGameService, times(1)).makePlays(game, player2, plays2);
         verify(this.bowlingGameService, times(1)).getPlayerResults(player1Score);
         verify(this.bowlingGameService, times(1)).getPlayerResults(player2Score);
-        verify(this.printer, times(1)).println(String.format("%s%s", table1, table2));
+        verify(this.printer, times(1)).println(String.format("%s\n%s%s", header, table1, table2));
     }
 
 }

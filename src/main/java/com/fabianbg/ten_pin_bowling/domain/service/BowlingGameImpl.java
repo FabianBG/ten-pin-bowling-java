@@ -42,15 +42,13 @@ public class BowlingGameImpl implements IBowlingGame {
 
     @Override
     public String getPlayerResults(PlayerScore playerScores) {
-        StringBuilder frame = new StringBuilder();
+        StringBuilder player = new StringBuilder(playerScores.getName());
         StringBuilder pinfall = new StringBuilder();
         StringBuilder score = new StringBuilder();
-        frame.append("Frame");
         pinfall.append("Pinfalls");
         score.append("Score");
         Frame[] frames = playerScores.getFrames();
         for (int i = 0; i < frames.length; i++) {
-            frame.append(String.format("\t\t%d", i + 1));
             final int plays = frames[i].getPinfalls().size();
             String pinScore = frames[i].getPinfalls().stream().reduce("", (String a, String b) -> {
                 if (plays == 1) {
@@ -61,9 +59,18 @@ public class BowlingGameImpl implements IBowlingGame {
             pinfall.append(pinScore);
             score.append(String.format("\t\t%d", frames[i].getScore()));
         }
-        frame.append(String.format("\n%s", playerScores.getName()));
-        frame.append(String.format("\n%s", pinfall.toString()));
-        frame.append(String.format("\n%s\n", score.toString()));
+        player.append(String.format("\n%s", pinfall.toString()));
+        player.append(String.format("\n%s\n", score.toString()));
+        return player.toString();
+    }
+
+    @Override
+    public String getFrameHeader() {
+        StringBuilder frame = new StringBuilder();
+        frame.append("Frame");
+        for (int i = 1; i <= this.NUMBER_OF_FRAMES; i++) {
+            frame.append(String.format("\t\t%d", i));
+        }
         return frame.toString();
     }
 
@@ -107,14 +114,15 @@ public class BowlingGameImpl implements IBowlingGame {
                 if (scores.size() < furterScoresIndex)
                     break;
 
-                final int nextScore = parseScore(scores.get(actualPlay++));
-                if (nextScore + scoreParsed == this.STRIKE_VALUE) {
+                String nextScore = scores.get(actualPlay++);
+                final int nextScoreParsed = parseScore(nextScore);
+                if (nextScoreParsed + scoreParsed == this.STRIKE_VALUE) {
                     actual.getPinfalls().add(this.SPARSE_LABEL);
                     actualScore = calculateScore(actualScore, scores.subList(actualPlay, furterScoresIndex + 1));
                 } else {
-                    actual.getPinfalls().add(score);
+                    actual.getPinfalls().add(nextScore);
                 }
-                actualScore += nextScore + scoreParsed;
+                actualScore += nextScoreParsed + scoreParsed;
             }
 
             if (i == this.NUMBER_OF_FRAMES - 1) {

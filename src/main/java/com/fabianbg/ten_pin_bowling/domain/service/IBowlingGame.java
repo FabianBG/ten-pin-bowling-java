@@ -13,5 +13,7 @@ public interface IBowlingGame {
 
     public PlayerScore makePlays(Map<String, PlayerScore> game, String player, List<String> plays);
 
+    public String getFrameHeader();
+
     public String getPlayerResults(PlayerScore playerScores);
 }

@@ -77,11 +77,13 @@ public class CMDControllerImpl implements IAppController {
 
     private String getScoreTablesFromGroupedPlays(Map<String, List<String>> plays) throws Exception {
         try {
+            String header = this.bowlingGame.getFrameHeader();
             Map<String, PlayerScore> game = this.bowlingGame.newGame();
-            return plays.entrySet().stream().map((Map.Entry<String, List<String>> e) -> {
+            String results = plays.entrySet().stream().map((Map.Entry<String, List<String>> e) -> {
                 PlayerScore player = this.bowlingGame.makePlays(game, e.getKey(), e.getValue());
                 return this.bowlingGame.getPlayerResults(player);
             }).reduce(String::concat).get();
+            return String.format("%s\n%s", header, results);
         } catch (Exception e) {
             throw new Exception("error processing the plays");
         }
